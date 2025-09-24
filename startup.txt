@@ -1,1 +1,1 @@
-source bot-env/bin/activate
+source venv/bin/activate
