@@ -1,2 +1,11 @@
 .env
-/bot-env
+/venv
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+*.db
+
+materials
