@@ -4,9 +4,9 @@ from langchain_core.prompts import ChatPromptTemplate
 
 class LLMService():
     
-    def generate_response(query, relevant_vectors):
-        # Set up llm model
-        prompt_template = ChatPromptTemplate.from_template("""
+    def __init__(self, model_name="gpt-4", temperature=0):
+        self.llm = ChatOpenAI(model_name=model_name, temperature=temperature)
+        self.prompt_template = ChatPromptTemplate.from_template("""
             You are a knowledgeable assistant. You can only answer questions using the context provided below.
             If the answer is not in the context, say "I wasn't able to find the answer to that in the notes...".
 
@@ -18,10 +18,11 @@ class LLMService():
 
             Answer:
         """)
-        llm = ChatOpenAI(model_name="gpt-4", temperature=0)
-        chain = create_stuff_documents_chain(llm, prompt_template)
+        self.chain = create_stuff_documents_chain(self.llm, self.prompt_template)
 
-        answer = chain.invoke({
+    def generate_response(self, query, relevant_vectors):
+        # Set up llm model
+        answer = self.chain.invoke({
             "context":relevant_vectors,
             "question":query
         })

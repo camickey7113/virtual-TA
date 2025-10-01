@@ -3,6 +3,7 @@ from langchain.text_splitter import CharacterTextSplitter
 
 class PDFService:
     # Converts a pdf file to chunks
+    @staticmethod
     def extract_chunks(file):
         # Convert PDF to text
         reader = PdfReader(file)
@@ -17,7 +18,3 @@ class PDFService:
                     chunk_overlap=200,
         )
         return text_splitter.split_text(all_text)
-
-    
-
-    
