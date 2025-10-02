@@ -2,10 +2,10 @@ import discord
 from service import QAService
 
 class QuestionController:
-    def __init__(self, client):
+    def __init__(self, client, qa_service):
         self.client = client
         self.register_events()
-        self.qa_service = QAService()
+        self.qa_service = qa_service
 
     def register_events(self):
         # testing commands

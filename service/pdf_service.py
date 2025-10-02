@@ -1,5 +1,6 @@
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
+import os
 
 class PDFService:
     # Converts a pdf file to chunks
@@ -18,3 +19,12 @@ class PDFService:
                     chunk_overlap=200,
         )
         return text_splitter.split_text(all_text)
+    
+    @staticmethod
+    def extract_chunks_from_folder(folder_path):
+        all_chunks = []
+        for filename in os.listdir(folder_path):
+            file_path = os.path.join(folder_path, filename)
+            chunks = PDFService.extract_chunks(file_path)
+            all_chunks.extend(chunks)
+        return all_chunks
