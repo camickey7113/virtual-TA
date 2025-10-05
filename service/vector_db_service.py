@@ -15,12 +15,15 @@ class VectorDBService:
         print("Loaded FAISS index.")
 
     # function to regenerate FAISS knowledge base
-    def regenerate(self, chunks):
+    def regenerate(self, chunks, metadatas):
         # Takes a list of chunks of text and returns a corresponding list of vector embeddings
-        self.knowledge_base = FAISS.from_texts(chunks, self.embeddings)
+        self.knowledge_base = FAISS.from_texts(texts=chunks, embedding=self.embeddings, metadatas=metadatas)
         self.knowledge_base.save_local(self.index_path)
         print("Regenerated FAISS index.")
 
     # takes embeddings and a query and returns ranked results of most relevant vectors
     def relevant_vectors(self, query):
-        return self.knowledge_base.similarity_search(query)
+        results = self.knowledge_base.similarity_search(query)
+        for meta in results:
+            print(meta.metadata)
+        return results

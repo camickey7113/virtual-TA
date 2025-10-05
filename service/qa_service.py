@@ -13,8 +13,8 @@ class QAService():
         if index_exists and not rebuild:
             self.knowledge_base.load()
         else:
-            chunks = PDFService.extract_chunks_from_folder(MATERIALS_FOLDER_NAME)
-            self.knowledge_base.regenerate(chunks)
+            chunks, metadatas = PDFService.extract_chunks_from_folder(MATERIALS_FOLDER_NAME)
+            self.knowledge_base.regenerate(chunks, metadatas)
 
         self.llm_service = LLMService()
 

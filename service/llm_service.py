@@ -26,5 +26,4 @@ class LLMService():
             "context":relevant_vectors,
             "question":query
         })
-
         return answer
